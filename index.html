@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engenharia Social: A Nova Era</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            /* Texto Branco para contraste no tema Dark */
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0; /* Cinza claro gelo */
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            
+            /* Liquid Glass Original (Dark & Translucent) */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 25px;
+            
+            /* Sombra para garantir leitura sobre o fundo colorido */
+            --text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- LAVA LAMP BACKGROUND (ACELERADO) --- */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0f0f1a 0%, #000000 100%);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.6;
+            animation: float infinite ease-in-out;
+            will-change: transform;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: #4f46e5; /* Indigo Vibrante */
+            top: 10%;
+            left: 20%;
+            animation-duration: 7s;
+        }
+
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            background: #7c3aed; /* Roxo Profundo */
+            bottom: 10%;
+            right: 10%;
+            animation-duration: 9s;
+            animation-delay: -2s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: #db2777; /* Rosa Magenta */
+            bottom: 30%;
+            left: 10%;
+            animation-duration: 6s;
+            animation-delay: -1s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -60px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* --- SLIDE CONTAINER --- */
+        .slides-wrapper {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 3rem 4rem;
+            
+            /* Liquid Glass Effect */
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        /* --- TYPOGRAPHY (Alto Contraste) --- */
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: var(--text-shadow);
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #f8fafc;
+            font-weight: 700;
+            text-shadow: var(--text-shadow);
+            border-left: 5px solid #818cf8;
+            padding-left: 20px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #a5b4fc; /* Azul claro para destaque no escuro */
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        p, li {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        li::before {
+            content: "•";
+            color: #818cf8;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* --- COMPONENTS --- */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #c084fc;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(192, 132, 252, 0.3);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 1rem;
+        }
+        
+        .comparison-table th {
+            text-align: left;
+            padding: 10px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            background: rgba(255,255,255,0.07);
+            color: #fff;
+            font-weight: 500;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .comparison-table td:first-child { border-left: 1px solid rgba(255,255,255,0.05); border-radius: 10px 0 0 10px; }
+        .comparison-table td:last-child { border-right: 1px solid rgba(255,255,255,0.05); border-radius: 0 10px 10px 0; }
+
+        .defense-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .defense-grid { grid-template-columns: 1fr; }
+        }
+        
+        .phase-box {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .phase-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .phase-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 10px;
+        }
+
+        /* --- DISCUSSION BOX --- */
+        .discussion-box {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .discussion-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .discussion-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* --- SOURCES FOOTER --- */
+        .sources-footer {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .source-item {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-family: monospace;
+        }
+        
+        .source-item span {
+            color: #a5b4fc;
+            font-weight: bold;
+        }
+
+        /* --- NAVIGATION --- */
+        .progress-bar {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #fff;
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        .nav-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            z-index: 20;
+            background: rgba(0,0,0,0.4);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="background-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="slides-wrapper">
+        
+        <div class="slide active">
+            <span class="badge">Café com Ciber • 2025</span>
+            <h1>Engenharia Social</h1>
+            <p style="font-size: 2rem; color: #cbd5e1;">A Nova Realidade das Ameaças Digitais</p>
+            <div style="margin-top: 3rem; padding: 20px; background: rgba(255,255,255,0.05); border-left: 4px solid #fff; border-radius: 0 12px 12px 0;">
+                <p style="margin:0; font-weight: 500; font-style: italic;">"Amadores hackeiam sistemas. Profissionais hackeiam pessoas."</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>O Tamanho do Problema</h2>
+            <p>O Brasil é um alvo prioritário. A tecnologia avança, mas o cérebro humano continua vulnerável.</p>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="stat-number">#3</span>
+                    <p>Brasil no ranking de ataques na América Latina</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">+21%</span>
+                    <p>Aumento de incidentes em 2025</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">98%</span>
+                    <p>Dos ciberataques começam com Engenharia Social</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>O Que é Engenharia Social?</h2>
+            <p>Não é sobre código. É sobre manipulação.</p>
+            <br>
+            <p>É a arte de explorar a psicologia humana, ao invés de falhas técnicas, para obter acesso a edifícios, sistemas ou dados.</p>
+            
+            <div style="margin-top: 2rem; display: flex; gap: 20px;">
+                <div class="stat-card" style="flex:1; text-align: left;">
+                    <strong style="color: #818cf8; font-size: 1.2rem;">O Objetivo</strong>
+                    <p>Fazer você realizar uma ação que não é do seu interesse.</p>
+                </div>
+                <div class="stat-card" style="flex:1; text-align: left;">
+                    <strong style="color: #f472b6; font-size: 1.2rem;">A Arma</strong>
+                    <p>Confiança, Medo, Curiosidade e Urgência.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>A Evolução da Ameaça</h2>
+            <p>Deixamos de ser pescados com redes (spam) para sermos caçados com arpões (spear phishing).</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Era</th>
+                        <th>Método</th>
+                        <th>Ferramentas</th>
+                        <th>Efetividade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="opacity: 0.5">2015</td>
+                        <td>Spam em Massa</td>
+                        <td>Listas de Email</td>
+                        <td>Baixa (~5%)</td>
+                    </tr>
+                    <tr>
+                        <td style="opacity: 0.7">2020</td>
+                        <td>Spear Phishing</td>
+                        <td>LinkedIn / Redes</td>
+                        <td>Média (~15%)</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #a78bfa; font-weight:700;">2025</td>
+                        <td>Hyper-Personalização</td>
+                        <td>IA + Deepfakes</td>
+                        <td>Alta (+50%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h2>Por Que Caímos? (Psicologia)</h2>
+            <p>Os atacantes usam os "Gatilhos Mentais" contra nós.</p>
+            
+            <ul style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <li>
+                    <strong>Autoridade:</strong> "Aqui é o Diretor Financeiro, preciso disso agora."
+                    <br><span style="font-size:0.9rem; opacity:0.7;">Ninguém quer dizer não ao chefe.</span>
+                </li>
+                <li>
+                    <strong>Urgência:</strong> "Sua conta será bloqueada em 10 minutos."
+                    <br><span style="font-size:0.9rem; opacity:0.7;">O cérebro racional falha na pressa.</span>
+                </li>
+                <li>
+                    <strong>Curiosidade:</strong> "Veja as fotos da festa (Anexo: virus.exe)"
+                    <br><span style="font-size:0.9rem; opacity:0.7;">O desejo de saber supera a cautela.</span>
+                </li>
+                <li>
+                    <strong>Reciprocidade:</strong> "Fiz um favor para você, pode me passar sua senha?"
+                    <br><span style="font-size:0.9rem; opacity:0.7;">Sentimos obrigação de retribuir.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2>Como os Criminosos Trabalham</h2>
+            <p>A "Cyber Kill Chain" humana.</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.1);">
+                <ol style="list-style: none; counter-reset: my-counter;">
+                    <li style="counter-increment: my-counter; margin-bottom: 15px;">
+                        <span style="font-weight: 700; color: #818cf8; font-size: 1.2rem;">1. Reconhecimento:</span> Coleta de dados públicos.
+                    </li>
+                    <li style="counter-increment: my-counter; margin-bottom: 15px;">
+                        <span style="font-weight: 700; color: #a78bfa; font-size: 1.2rem;">2. Profiling:</span> Criação do perfil da vítima ideal.
+                    </li>
+                    <li style="counter-increment: my-counter; margin-bottom: 15px;">
+                        <span style="font-weight: 700; color: #c084fc; font-size: 1.2rem;">3. Pretexting:</span> Criação da história/cenário falso.
+                    </li>
+                    <li style="counter-increment: my-counter;">
+                        <span style="font-weight: 700; color: #e879f9; font-size: 1.2rem;">4. Exploração:</span> O clique ou a transferência.
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>OSINT: Eles Sabem Tudo Sobre Você</h2>
+            <p>Open Source Intelligence. A munição do ataque.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                <div>
+                    <h3>Onde eles buscam?</h3>
+                    <ul>
+                        <li><strong>Redes Sociais:</strong> Nomes de pets, datas de viagem, cargo.</li>
+                        <li><strong>Vazamentos Antigos:</strong> Suas senhas antigas estão na Dark Web.</li>
+                        <li><strong>Metadados:</strong> Localização GPS em fotos postadas.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Ferramentas Reais</h3>
+                    <ul>
+                        <li><strong>Shodan:</strong> O "Google" dos dispositivos conectados.</li>
+                        <li><strong>Maltego:</strong> Mapeia relacionamentos entre pessoas.</li>
+                        <li><strong>Google Dorks:</strong> Pesquisas para achar arquivos sensíveis.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>IA: O Multiplicador de Força</h2>
+            <p>Antes, um golpista enganava 10 pessoas por dia. Com IA, ele engana 10.000.</p>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <strong>Texto Perfeito</strong>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Adeus erros de português. LLMs criam emails corporativos indistinguíveis.</p>
+                </div>
+                <div class="stat-card">
+                    <strong>Tradução Real-time</strong>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Golpistas estrangeiros falam português fluente em chamadas.</p>
+                </div>
+                <div class="stat-card">
+                    <strong>Chatbots Maliciosos</strong>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Suporte técnico falso 24/7 totalmente automatizado.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>Deepfakes & Clonagem de Voz</h2>
+            <p>A fronteira final da desconfiança.</p>
+            
+            <div style="display: flex; gap: 30px; align-items: center; margin-top: 20px;">
+                <div style="flex: 1;">
+                    <h3 style="color: #f472b6;">3 Segundos</h3>
+                    <p>É o tempo de áudio necessário para uma IA clonar a voz do seu chefe ou familiar.</p>
+                    <h3 style="color: #f472b6;">Video Injection</h3>
+                    <p>Softwares que injetam um rosto falso em tempo real na câmera do Zoom ou Teams.</p>
+                </div>
+                <div style="flex: 1; padding: 20px; background: rgba(0,0,0,0.5); color: #4ade80; border-radius: 10px; font-family: monospace; border: 1px solid rgba(255,255,255,0.1);">
+                    > Detectando voz_usuario...<br>
+                    > Gerando modelo...<br>
+                    > Sintetizando fala...<br>
+                    > <span style="color: #f87171;">Voz Clonada com Sucesso.</span><br>
+                    > Iniciando chamada VoIP...
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>Casos Reais Recentes</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <span class="badge" style="background: rgba(239, 68, 68, 0.2); border-color: #ef4444;">Hong Kong, 2024</span>
+                <h3>O caso que provou que "ver para crer" morreu</h3>
+                <p>Um funcionário transferiu <strong>US$ 25 Milhões</strong> após uma reunião de vídeo onde TODOS os participantes, exceto ele, eram Deepfakes gerados por IA.</p>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <span class="badge" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b;">Las Vegas, MGM Resorts</span>
+                <h3>O gigante derrubado por um telefonema</h3>
+                <p>Hackers ligaram para o Help Desk, fingiram ser um funcionário (usando dados do LinkedIn) e pediram reset de MFA. Prejuízo: <strong>US$ 100 Milhões</strong>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>O Que Você Pode Fazer Hoje?</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h3>Para Pessoas</h3>
+                    <ul>
+                        <li>Desconfie de pressão ou urgência.</li>
+                        <li>Verifique o remetente com atenção.</li>
+                        <li>Use Gerenciadores de Senha.</li>
+                        <li>Combine uma "palavra-senha" com sua família para casos de emergência.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Para Empresas</h3>
+                    <ul>
+                        <li>Treine pessoas, não instale só antivírus.</li>
+                        <li>Recompense quem reporta erros.</li>
+                        <li>Estabeleça canais de verificação claros.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Para Discussão</h1>
+            <p style="font-size: 1.5rem; margin-top: 1rem;">"A tecnologia muda a cada segundo. A natureza humana não."</p>
+            
+            <div class="discussion-box">
+                <div class="discussion-item">
+                    <span class="discussion-icon">🤔</span>
+                    <div>
+                        <strong>Privacidade vs. Segurança</strong>
+                        <p style="font-size: 1rem; margin: 0;">Até onde as empresas devem ir no monitoramento dos funcionários?</p>
+                    </div>
+                </div>
+                
+                <div class="discussion-item">
+                    <span class="discussion-icon">🤖</span>
+                    <div>
+                        <strong>Identidade na Era da IA</strong>
+                        <p style="font-size: 1rem; margin: 0;">Se voz e vídeo não provam mais quem você é, o que prova?</p>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <span class="discussion-icon">⚖️</span>
+                    <div>
+                        <strong>A Culpa é da Vítima?</strong>
+                        <p style="font-size: 1rem; margin: 0;">Como mudar a cultura de "punir" para "apoiar"?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sources-footer">
+                <div class="source-item"><span>Dados:</span> IBM Cost of Data Breach • Fortinet Threat Intelligence</div>
+                <div class="source-item"><span>Casos (2024):</span> CNN • BBC • Bloomberg • Reuters</div>
+                <div class="source-item"><span>Teoria:</span> Robert Cialdini (As Armas da Persuasão)</div>
+            </div>
+
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; opacity: 0.6;">Obrigada pela atenção.</p>
+        </div>
+
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="nav-hint">Use as setas ↑ ↓ do teclado</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        let currentSlide = 0;
+
+        // Criar dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => showSlide(index));
+            progressBar.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Navegação Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                if (currentSlide > 0) showSlide(currentSlide - 1);
+            }
+        });
+    </script>
+</body>
+</html>
